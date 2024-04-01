@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Nome</mat-label>
+    <input matInput type="text" formControlName="name">
+    @if (form.get('name')?.hasError('required')) {
+      <mat-error>campo obrigatório</mat-error>
+    }
+    </mat-form-field>
+  <mat-form-field>
+    <mat-label>E-mail</mat-label>
+    <input matInput type="email" formControlName="email">
+    @if (form.get('email')?.hasError('required')) {
+      <mat-error>campo obrigatório</mat-error>
+    }
+    @if (form.get('email')?.hasError('email')) {
+      <mat-error>formato incorreto de e-mail</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Senha</mat-label>
+    <input matInput type="password" formControlName="password" >
+    @if (form.get('password')?.hasError('required')) {
+      <mat-error>campo obrigatório</mat-error>
+    }
+  </mat-form-field>
+  <button mat-flat-button type="button" style="background-color: green; color: #ffffff;" (click)="returnLogin()">Criar</button>
+  <a href="">Já tem uma conta?</a>
+</form>
