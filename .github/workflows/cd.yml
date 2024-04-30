@@ -1,4 +1,4 @@
-name: Deploy netlify site
+name: CD
 
 on:
   push:
