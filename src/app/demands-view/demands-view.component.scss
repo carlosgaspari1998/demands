@@ -20,9 +20,6 @@
   padding: 1em;
 }
 
-table {
-  max-height: calc(100vh - 225px);
-}
 
 .container-table {
   width: 70%;
@@ -32,6 +29,22 @@ table {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.mat-mdc-row {
-  height: 15px;
+.mat-elevation-z8 {
+  min-height: calc(100vh - 225px);
+  max-height: calc(100vh - 220px);
+  overflow-y: auto; 
 }
+
+.mat-mdc-row {
+  height: 30px;
+}
+
+.mat-mdc-icon-button {
+  padding: 0px;
+}
+
+.small-button {
+  width: 28px;
+  height: 28px;
+}
+

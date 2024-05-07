@@ -38,22 +38,11 @@ export class DemandsViewComponent implements AfterViewInit {
     {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
     {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
     {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-    {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   ];
 
   dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA);
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
   constructor(
     private _bottomSheet: MatBottomSheet
    // private formBuilder: FormBuilder
@@ -81,7 +70,17 @@ export class DemandsViewComponent implements AfterViewInit {
   }
 
   removeData() {
-    /*this.dataSource.pop();
-    this.table.renderRows();*/
+  }
+
+  editItem(item: PeriodicElement) {
+    
+  }
+
+  removeItem(element: PeriodicElement): void {
+    const index = this.dataSource.data.indexOf(element);
+    if (index !== -1) {
+      this.dataSource.data.splice(index, 1);
+      this.dataSource._updateChangeSubscription();
+    }
   }
 }

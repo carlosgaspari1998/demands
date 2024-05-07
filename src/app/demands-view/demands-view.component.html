@@ -1,8 +1,6 @@
 <div class="header">
 
   <div class="menu-options">
-    <button mat-button>VISÃO GERAL</button>
-
     <button mat-button [matMenuTriggerFor]="menu">
       <div class="menu-options">CADASTROS
         <mat-icon>expand_more</mat-icon>
@@ -61,16 +59,23 @@
           <th mat-header-cell *matHeaderCellDef>Observação</th>
           <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
         </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button class="small-button" (click)="editItem(element)">
+              <mat-icon style="font-size: 20px;">edit</mat-icon>
+            </button>
+            <button mat-icon-button class="small-button" (click)="removeItem(element)">
+              <mat-icon style="font-size: 20px;">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-
-      @if (dataSource.data.length>2){
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-      </mat-paginator>
-      }
-
     </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
   </div>
 </div>

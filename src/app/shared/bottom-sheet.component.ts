@@ -15,4 +15,8 @@ import { MatInput } from '@angular/material/input';
   })
   export class BottomSheet {
     constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheet>) {}
+
+    close(): void {
+      this._bottomSheetRef.dismiss();
+    }
   }
