@@ -5,13 +5,8 @@ import { DemandsViewComponent } from './demands-view/demands-view.component';
 
 
 export const routes: Routes = [
-  { path: 'login', component: LoginViewComponent, pathMatch: 'full' },
-  {
-    //canActivate: [AuthGuardService],
-    path: '', component: DemandsViewComponent,  children:   [
-      { path: 'home', component: DemandsViewComponent }
-    ]
-  }
+  { path: '', component: LoginViewComponent,  pathMatch: 'full' },
+  { path: 'view', component: DemandsViewComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
