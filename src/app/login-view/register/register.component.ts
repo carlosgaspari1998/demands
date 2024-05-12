@@ -1,19 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatCardModule} from '@angular/material/card';
-import {ReactiveFormsModule, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [MatButtonModule,
-            MatDividerModule,
-            MatInputModule,
-            MatCardModule,
-            ReactiveFormsModule
-          ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

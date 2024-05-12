@@ -1,25 +1,14 @@
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatTable} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {PeriodicElement} from './periodicElement';
-import {MatIconModule} from '@angular/material/icon';
+import { MatTableDataSource } from '@angular/material/table';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { PeriodicElement } from './periodicElement';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomSheet } from '../shared/bottom-sheet.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialog } from '../shared/dialogs/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-demands-view',
-  standalone: true,
-  imports: [MatTableModule,
-            MatTable,
-            MatButtonModule,
-            MatMenuModule,
-            MatIconModule,
-            MatTableModule,
-            MatPaginatorModule
-          ],
   templateUrl: './demands-view.component.html',
   styleUrl: './demands-view.component.scss'
 })
@@ -44,14 +33,9 @@ export class DemandsViewComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
   constructor(
-    private _bottomSheet: MatBottomSheet
-   // private formBuilder: FormBuilder
+    private _bottomSheet: MatBottomSheet,
+    private dialog: MatDialog
   ) { 
-    /*this.form = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required]]
-    });*/
-    
   }
 
   ngAfterViewInit() {
@@ -63,10 +47,6 @@ export class DemandsViewComponent implements AfterViewInit {
   }
 
   addData() {
-    
-    /*const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-    this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
-    this.table.renderRows();*/
   }
 
   removeData() {
@@ -77,10 +57,17 @@ export class DemandsViewComponent implements AfterViewInit {
   }
 
   removeItem(element: PeriodicElement): void {
-    const index = this.dataSource.data.indexOf(element);
-    if (index !== -1) {
-      this.dataSource.data.splice(index, 1);
-      this.dataSource._updateChangeSubscription();
-    }
+    const dialog = this.dialog.open(ConfirmationDialog, { maxWidth: '500px'});
+    dialog
+      .afterClosed()
+      .subscribe((confirm: boolean) => {
+        if (confirm) {
+          const index = this.dataSource.data.indexOf(element);
+          if (index !== -1) {
+            this.dataSource.data.splice(index, 1);
+            this.dataSource._updateChangeSubscription();
+          }
+        }
+      });
   }
 }
