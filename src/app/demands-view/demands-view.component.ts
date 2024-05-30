@@ -1,5 +1,5 @@
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Products } from './products';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './demands-view.component.html',
   styleUrl: './demands-view.component.scss'
 })
-export class DemandsViewComponent implements OnInit {
+export class DemandsViewComponent implements OnInit, AfterViewInit {
   title = 'demands';
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -27,8 +27,11 @@ export class DemandsViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
     this.loadProducts();
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
   loadProducts() {
