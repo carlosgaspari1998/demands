@@ -20,6 +20,8 @@ import { RegisterComponent } from './login-view/register/register.component';
 import { DemandsViewComponent } from './demands-view/demands-view.component';
 import { LoginViewComponent } from './login-view/login-view.component';
 import { AppRoutingModule } from './app.routes';
+import { HttpClientModule } from '@angular/common/http';
+import { BottomSheetComponent } from './shared/bottom-sheet.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { AppRoutingModule } from './app.routes';
     LoginComponent,
     LoginViewComponent,
     RegisterComponent,
+    BottomSheetComponent
   ],
   imports: [
     AppRoutingModule,
@@ -45,7 +48,8 @@ import { AppRoutingModule } from './app.routes';
     MatMenuModule,
     MatPaginatorModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

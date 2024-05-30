@@ -2,19 +2,18 @@
   <button mat-icon-button type="button" style="display: inline-block; vertical-align: middle;" (click)="close()">
     <mat-icon>close</mat-icon>
   </button>
-  <div style="display: inline-block; vertical-align: middle;">NOVO PEDIDO
-  </div> 
+  <div style="display: inline-block; vertical-align: middle;">{{ isNewProduct ? 'NOVO PRODUTO' : 'EDITAR PRODUTO' }}</div>
 
-  <form class="example-form">
+  <form class="example-form" [formGroup]="form">
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Favorite food" value="Sushi">
+      <input matInput placeholder="Nome" formControlName="name" required>
     </mat-form-field>
-  
+
     <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Leave a comment"></textarea>
+      <textarea matInput placeholder="Descrição" formControlName="description" required></textarea>
     </mat-form-field>
   </form>
   <div class="add">
-    <button mat-flat-button type="button" color="primary" >SALVAR</button>
+    <button (click)="saveProduct()" mat-flat-button type="submit" color="primary">{{ isNewProduct ? 'SALVAR' : 'ATUALIZAR' }}</button>
   </div>
 </div>
