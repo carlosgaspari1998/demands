@@ -5,8 +5,8 @@ import { DemandsViewComponent } from './demands-view/demands-view.component';
 
 
 export const routes: Routes = [
-  { path: '', component: DemandsViewComponent, pathMatch: 'full' },
-  { path: 'view', component: LoginViewComponent,  pathMatch: 'full' }
+  { path: '', component: LoginViewComponent,  pathMatch: 'full' },
+  { path: 'view', component: DemandsViewComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
