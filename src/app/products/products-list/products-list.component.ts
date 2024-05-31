@@ -1,20 +1,20 @@
 import { MatTableDataSource } from '@angular/material/table';
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Products } from './products';
+import { Products } from '../products';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { BottomSheetComponent } from '../shared/bottom-sheet.component';
+import { ProductBottomSheetComponent } from '../product-bottom-sheet/product-bottom-sheet.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialog } from '../shared/dialogs/confirmation-dialog/confirmation-dialog';
+import { ConfirmationDialog } from '../../shared/dialogs/confirmation-dialog/confirmation-dialog';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-demands-view',
-  templateUrl: './demands-view.component.html',
-  styleUrl: './demands-view.component.scss'
+  selector: 'app-products-list',
+  templateUrl: './products-list.component.html',
+  styleUrl: './products-list.component.scss'
 })
-export class DemandsViewComponent implements OnInit, AfterViewInit {
-  title = 'demands';
+export class ProductsListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   dataSource = new MatTableDataSource<Products>;
@@ -35,7 +35,7 @@ export class DemandsViewComponent implements OnInit, AfterViewInit {
   }
 
   loadProducts() {
-    this.http.get<Products[]>('https://demands-api.vercel.app/products').subscribe(data => {
+    this.http.get<Products[]>(environment.apiUrl + '/products').subscribe(data => {
       this.dataSource.data = data;
     });
   }
@@ -49,7 +49,7 @@ export class DemandsViewComponent implements OnInit, AfterViewInit {
   }
 
   openBottomSheet(productId?: string): void {
-    const bottomSheetRef = this._bottomSheet.open(BottomSheetComponent, {
+    const bottomSheetRef = this._bottomSheet.open(ProductBottomSheetComponent, {
       data: {
         id: productId || ''
       }
@@ -73,7 +73,7 @@ export class DemandsViewComponent implements OnInit, AfterViewInit {
   }
 
   removeData(productId: string) {
-    this.http.delete(`https://demands-api.vercel.app/products/${productId}`).subscribe(
+    this.http.delete(environment.apiUrl + `/products/${productId}`).subscribe(
       () => {
         this.loadProducts();
       },

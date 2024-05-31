@@ -2,20 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Importe o MatSnackBar
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  selector: 'app-user-login',
+  templateUrl: './user-login.component.html',
+  styleUrl: './user-login.component.scss'
 })
-export class LoginComponent {
-  title = 'login';
+export class UserLoginComponent {
   form: FormGroup;
-
-  private apiUrl = 'https://demands-api.vercel.app';
-
-  @Output() viewRegister = new EventEmitter();
+  @Output() viewUserForm = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,13 +27,13 @@ export class LoginComponent {
   }
 
   newRegister() {
-    this.viewRegister.emit();
+    this.viewUserForm.emit();
   }
 
   login() {
     if (this.form.valid) {
       const { email, password } = this.form.value;
-      this.http.post(`${this.apiUrl}/login`, { email, password }).subscribe({
+      this.http.post(environment.apiUrl + '/users/login', { email, password }).subscribe({
         next: (response: any) => {
           console.log('Login bem sucedido', response);
           this.router.navigate(['/view']);

@@ -2,18 +2,16 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  selector: 'app-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrl: './user-form.component.scss'
 })
-export class RegisterComponent {
-  title = 'register';
+export class UserFormComponent {
   form: FormGroup;
-  @Output() viewLogin = new EventEmitter();
-
-  private apiUrl = 'https://demands-api.vercel.app';
+  @Output() viewUserLogin = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +30,7 @@ export class RegisterComponent {
       this.registerRequest(name, email, password).subscribe({
         next: (response) => {
           console.log('Usuário registrado com sucesso', response);
-          this.viewLogin.emit();
+          this.viewUserLogin.emit();
         },
         error: (error) => {
           console.error('Erro ao registrar o usuário', error);
@@ -45,6 +43,6 @@ export class RegisterComponent {
 
   registerRequest(name: string, email: string, password: string): Observable<any> {
     const payload = { name, email, password };
-    return this.http.post(`${this.apiUrl}/register`, payload);
+    return this.http.post(environment.apiUrl + '/users', payload);
   }
 }

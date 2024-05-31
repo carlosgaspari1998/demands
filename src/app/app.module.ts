@@ -15,24 +15,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { ConfirmationDialog } from './shared/dialogs/confirmation-dialog/confirmation-dialog';
-import { LoginComponent } from './login-view/login/login.component';
-import { RegisterComponent } from './login-view/register/register.component';
-import { DemandsViewComponent } from './demands-view/demands-view.component';
-import { LoginViewComponent } from './login-view/login-view.component';
+import { UserLoginComponent } from './users/user-login/user-login.component';
+import { UserComponent } from './users/user.component';
 import { AppRoutingModule } from './app.routes';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BottomSheetComponent } from './shared/bottom-sheet.component';
+import { ProductBottomSheetComponent } from './products/product-bottom-sheet/product-bottom-sheet.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { UserFormComponent } from './users/user-form/user-form.component';
+import { ProductsListComponent } from './products/products-list/products-list.component';
+import { HeaderComponent } from './hearder/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemandsViewComponent,
+    ProductsListComponent,
     ConfirmationDialog,
-    LoginComponent,
-    LoginViewComponent,
-    RegisterComponent,
-    BottomSheetComponent
+    UserLoginComponent,
+    UserComponent,
+    UserFormComponent,
+    ProductBottomSheetComponent,
+    HeaderComponent
   ],
   imports: [
     AppRoutingModule,

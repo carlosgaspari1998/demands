@@ -2,18 +2,19 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-bottom-sheet',
-  templateUrl: './bottom-sheet.component.html',
-  styleUrl: './bottom-sheet.component.scss',
+  selector: 'app-product-bottom-sheet',
+  templateUrl: './product-bottom-sheet.component.html',
+  styleUrl: './product-bottom-sheet.component.scss',
 })
-export class BottomSheetComponent implements OnInit {
+export class ProductBottomSheetComponent implements OnInit {
   form: FormGroup;
   isNewProduct = false;
 
   constructor(
-    private _bottomSheetRef: MatBottomSheetRef<BottomSheetComponent>,
+    private _bottomSheetRef: MatBottomSheetRef<ProductBottomSheetComponent>,
     private http: HttpClient,
     private fb: FormBuilder,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
@@ -32,7 +33,7 @@ export class BottomSheetComponent implements OnInit {
   }
 
   loadProduct(id: string): void {
-    this.http.get<any>(`https://demands-api.vercel.app/products/${id}`).subscribe(
+    this.http.get<any>(environment.apiUrl + `/products/${id}`).subscribe(
       (product) => {
         this.form.patchValue({
           name: product.name,
@@ -50,7 +51,7 @@ export class BottomSheetComponent implements OnInit {
       const productData = this.form.value;
 
       if (this.isNewProduct) {
-        this.http.post('https://demands-api.vercel.app/products', productData).subscribe(
+        this.http.post(environment.apiUrl + '/products', productData).subscribe(
           () => {
             this._bottomSheetRef.dismiss({ success: true, action: 'add' });
           },
@@ -60,7 +61,7 @@ export class BottomSheetComponent implements OnInit {
           }
         );
       } else {
-        this.http.put(`https://demands-api.vercel.app/products/${this.data.id}`, productData).subscribe(
+        this.http.put(environment.apiUrl + `/products/${this.data.id}`, productData).subscribe(
           () => {
             this._bottomSheetRef.dismiss({ success: true, action: 'edit' });
           },

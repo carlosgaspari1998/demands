@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginViewComponent } from './login-view/login-view.component';
-import { DemandsViewComponent } from './demands-view/demands-view.component';
+import { UserComponent } from './users/user.component';
+import { ProductsListComponent } from './products/products-list/products-list.component';
 
 
 export const routes: Routes = [
-  { path: '', component: LoginViewComponent,  pathMatch: 'full' },
-  { path: 'view', component: DemandsViewComponent, pathMatch: 'full' }
+  { path: '', component: UserComponent,  pathMatch: 'full' },
+  { path: 'view', component: ProductsListComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

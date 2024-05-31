@@ -4,10 +4,10 @@
       <mat-card-title>Gestão de Demandas</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      @if (viewLogin) {
-        <app-login (viewRegister)="viewLogin = false"></app-login>
+      @if (viewUserLogin) {
+        <app-user-login (viewUserForm)="viewUserLogin = false"></app-user-login>
       } @else {
-        <app-register (viewLogin)="viewLogin = true"></app-register>
+        <app-user-form (viewUserLogin)="viewUserLogin = true"></app-user-form>
       }
     </mat-card-content>
   </mat-card>
