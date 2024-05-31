@@ -13,7 +13,7 @@ export class RegisterComponent {
   form: FormGroup;
   @Output() viewLogin = new EventEmitter();
 
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://demands-api.vercel.app';
 
   constructor(
     private formBuilder: FormBuilder,
