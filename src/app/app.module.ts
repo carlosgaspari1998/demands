@@ -20,8 +20,9 @@ import { RegisterComponent } from './login-view/register/register.component';
 import { DemandsViewComponent } from './demands-view/demands-view.component';
 import { LoginViewComponent } from './login-view/login-view.component';
 import { AppRoutingModule } from './app.routes';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BottomSheetComponent } from './shared/bottom-sheet.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,9 @@ import { BottomSheetComponent } from './shared/bottom-sheet.component';
     ReactiveFormsModule,
     HttpClientModule 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
