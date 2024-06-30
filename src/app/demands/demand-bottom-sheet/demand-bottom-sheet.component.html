@@ -1,0 +1,29 @@
+<div>
+  <button mat-icon-button type="button" style="display: inline-block; vertical-align: middle;" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div style="display: inline-block; vertical-align: middle;">{{ isNewDemand ? 'NOVO PEDIDO' : 'EDITAR PEDIDO' }}</div>
+
+  <form class="example-form" [formGroup]="form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Cliente</mat-label>
+      <mat-select formControlName="customer">
+        @for (customer of customers; track customer) {
+          <mat-option [value]="customer.id">{{customer.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Descrição" formControlName="description" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field >
+      <input type="time" matInput placeholder="Horário" formControlName="demandTime" required>
+    </mat-form-field>
+    
+  </form>
+  <div class="add">
+    <button (click)="saveDemand()" mat-flat-button type="submit" color="primary">{{ isNewDemand ? 'SALVAR' : 'ATUALIZAR' }}</button>
+  </div>
+</div>

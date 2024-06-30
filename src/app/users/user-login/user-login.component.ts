@@ -35,10 +35,8 @@ export class UserLoginComponent {
       const { email, password } = this.form.value;
       this.http.post(environment.apiUrl + '/users/login', { email, password }).subscribe({
         next: (response: any) => {
-          console.log('Login bem sucedido', response);
-          this.router.navigate(['/view']);
+          this.router.navigate(['/demands']);
           localStorage.setItem('tokenDemands', response.token);
-          this.showSnackbar('Login bem sucedido');
         },
         error: (error) => {
           console.error('Erro ao fazer login', error);

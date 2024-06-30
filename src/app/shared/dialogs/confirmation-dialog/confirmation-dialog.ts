@@ -1,5 +1,5 @@
-import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {ChangeDetectorRef, Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'confirmation-dialog',
@@ -11,6 +11,7 @@ export class ConfirmationDialog {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public cdRef: ChangeDetectorRef
   ) {}
 

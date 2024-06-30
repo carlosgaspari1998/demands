@@ -7,8 +7,7 @@
       </div>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Produtos</button>
-      <button mat-menu-item>Clientes</button>
+      <button mat-menu-item (click)="open('customers')">Clientes</button>
     </mat-menu>
 
 
@@ -17,18 +16,14 @@
         <mat-icon>expand_more</mat-icon>
       </div>
 
-    </button>
+    </button>  
     <mat-menu #menu2="matMenu">
-      <button mat-menu-item>Pedidos</button>
+      <button mat-menu-item (click)="open('demands')">Pedidos</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="menu3">
-      <div class="menu-options">RELATÓRIOS
-        <mat-icon>expand_more</mat-icon>
+    <button mat-button (click)="open('events')">
+      <div class="menu-options">EVENTOS
       </div>
     </button>
-    <mat-menu #menu3="matMenu">
-      <button mat-menu-item>Vendas</button>
-    </mat-menu>
   </div>
 </div>

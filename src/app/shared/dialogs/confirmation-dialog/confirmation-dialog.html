@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Remover produto</h2>
+<h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content>
-  <p>Remover este produto será uma ação irreversível. Você tem certeza de que deseja prosseguir?</p>
+  <p>{{data.subtitle}}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">CANCELAR</button>
-  <button #buttonConfirm mat-button cdkFocusInitial color="primary" (click)="confirm()">REMOVER PRODUTO</button>
+  <button mat-button (click)="cancel()">{{data.cancel}}</button>
+  <button #buttonConfirm mat-button cdkFocusInitial color="primary" (click)="confirm()">{{data.action}}</button>
 </mat-dialog-actions>

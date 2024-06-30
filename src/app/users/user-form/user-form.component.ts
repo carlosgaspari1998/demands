@@ -28,8 +28,7 @@ export class UserFormComponent {
     if (this.form.valid) {
       const { name, email, password } = this.form.value;
       this.registerRequest(name, email, password).subscribe({
-        next: (response) => {
-          console.log('Usuário registrado com sucesso', response);
+        next: () => {
           this.viewUserLogin.emit();
         },
         error: (error) => {

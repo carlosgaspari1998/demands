@@ -5,68 +5,68 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-product-bottom-sheet',
-  templateUrl: './product-bottom-sheet.component.html',
-  styleUrl: './product-bottom-sheet.component.scss',
+  selector: 'app-customer-bottom-sheet',
+  templateUrl: './customer-bottom-sheet.component.html',
+  styleUrl: './customer-bottom-sheet.component.scss',
 })
-export class ProductBottomSheetComponent implements OnInit {
+export class CustomerBottomSheetComponent implements OnInit {
   form: FormGroup;
-  isNewProduct = false;
+  isNewCustomer = false;
 
   constructor(
-    private _bottomSheetRef: MatBottomSheetRef<ProductBottomSheetComponent>,
+    private _bottomSheetRef: MatBottomSheetRef<CustomerBottomSheetComponent>,
     private http: HttpClient,
     private fb: FormBuilder,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      description: ['', Validators.required]
+      address: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
     if (this.data.id != '')
-      this.loadProduct(this.data.id);
+      this.loadCustomer(this.data.id);
     else
-      this.isNewProduct = true;
+      this.isNewCustomer = true;
   }
 
-  loadProduct(id: string): void {
-    this.http.get<any>(environment.apiUrl + `/products/${id}`).subscribe(
-      (product) => {
+  loadCustomer(id: string): void {
+    this.http.get<any>(environment.apiUrl + `/customers/${id}`).subscribe(
+      (customer) => {
         this.form.patchValue({
-          name: product.name,
-          description: product.description
+          name: customer.name,
+          address: customer.address
         });
       },
       (error) => {
-        console.error('Erro ao carregar dados do produto:', error);
+        console.error('Erro ao carregar dados do cliente:', error);
       }
     );
   }
 
-  saveProduct(): void {
+  saveCustomer(): void {
     if (this.form.valid) {
-      const productData = this.form.value;
+      const customerData = this.form.value;
 
-      if (this.isNewProduct) {
-        this.http.post(environment.apiUrl + '/products', productData).subscribe(
+      if (this.isNewCustomer) {
+        this.http.post(environment.apiUrl + '/customers', customerData).subscribe(
           () => {
             this._bottomSheetRef.dismiss({ success: true, action: 'add' });
           },
           (error) => {
-            console.error('Erro ao cadastrar o produto:', error);
+            console.error('Erro ao cadastrar cliente:', error);
             this._bottomSheetRef.dismiss({ success: false, action: 'add' });
           }
         );
       } else {
-        this.http.put(environment.apiUrl + `/products/${this.data.id}`, productData).subscribe(
+        this.http.put(environment.apiUrl + `/customers/${this.data.id}`, customerData).subscribe(
           () => {
             this._bottomSheetRef.dismiss({ success: true, action: 'edit' });
           },
           (error) => {
-            console.error('Erro ao atualizar o produto:', error);
+            console.error('Erro ao atualizar cliente:', error);
             this._bottomSheetRef.dismiss({ success: false, action: 'edit' });
           }
         );

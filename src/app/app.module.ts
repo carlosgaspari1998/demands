@@ -19,21 +19,29 @@ import { UserLoginComponent } from './users/user-login/user-login.component';
 import { UserComponent } from './users/user.component';
 import { AppRoutingModule } from './app.routes';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ProductBottomSheetComponent } from './products/product-bottom-sheet/product-bottom-sheet.component';
+import { CustomerBottomSheetComponent } from './customers/customer-bottom-sheet/customer-bottom-sheet.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { UserFormComponent } from './users/user-form/user-form.component';
-import { ProductsListComponent } from './products/products-list/products-list.component';
+import { CustomersListComponent } from './customers/customer-list/customers-list.component';
 import { HeaderComponent } from './hearder/header.component';
+import { DemandsListComponent } from './demands/demands-list/demands-list.component';
+import { DemandBottomSheetComponent } from './demands/demand-bottom-sheet/demand-bottom-sheet.component';
+import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { EventsListComponent } from './events/logs-list/events-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductsListComponent,
+    CustomersListComponent,
     ConfirmationDialog,
     UserLoginComponent,
     UserComponent,
     UserFormComponent,
-    ProductBottomSheetComponent,
+    CustomerBottomSheetComponent,
+    DemandsListComponent,
+    EventsListComponent,
+    DemandBottomSheetComponent,
     HeaderComponent
   ],
   imports: [
@@ -46,13 +54,15 @@ import { HeaderComponent } from './hearder/header.component';
     MatDialogModule,
     MatDividerModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatIconModule,
     MatInputModule,
     MatMenuModule,
     MatPaginatorModule,
     MatTableModule,
     ReactiveFormsModule,
-    HttpClientModule 
+    HttpClientModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

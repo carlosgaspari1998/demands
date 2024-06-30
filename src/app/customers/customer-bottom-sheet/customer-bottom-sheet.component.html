@@ -2,7 +2,7 @@
   <button mat-icon-button type="button" style="display: inline-block; vertical-align: middle;" (click)="close()">
     <mat-icon>close</mat-icon>
   </button>
-  <div style="display: inline-block; vertical-align: middle;">{{ isNewProduct ? 'NOVO PRODUTO' : 'EDITAR PRODUTO' }}</div>
+  <div style="display: inline-block; vertical-align: middle;">{{ isNewCustomer ? 'NOVO CLIENTE' : 'EDITAR CLIENTE' }}</div>
 
   <form class="example-form" [formGroup]="form">
     <mat-form-field class="example-full-width">
@@ -10,10 +10,10 @@
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Descrição" formControlName="description" required></textarea>
+      <textarea matInput placeholder="Endereço" formControlName="address" required></textarea>
     </mat-form-field>
   </form>
   <div class="add">
-    <button (click)="saveProduct()" mat-flat-button type="submit" color="primary">{{ isNewProduct ? 'SALVAR' : 'ATUALIZAR' }}</button>
+    <button (click)="saveCustomer()" mat-flat-button type="submit" color="primary">{{ isNewCustomer ? 'SALVAR' : 'ATUALIZAR' }}</button>
   </div>
 </div>
