@@ -1,9 +1,13 @@
 <app-header></app-header>
 
-<div class="add">
+<div class="container-add">
   <div>
     <button mat-flat-button type="button" color="primary" (click)="addDemand()">ADICIONAR PEDIDO</button>
-    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="showOnlyNotFinalized" (click)="loadDemands()">Exibir somente pedidos não finalizados</mat-checkbox>
+  </div>
+  <div >
+    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="showOnlyNotFinalized" (click)="loadDemands()">
+      Exibir somente pedidos não finalizados
+    </mat-checkbox>
   </div>
 </div>
 
