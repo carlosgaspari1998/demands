@@ -53,10 +53,12 @@ export class DemandBottomSheetComponent implements OnInit {
   loadDemand(id: string): void {
     this.http.get<any>(`${environment.apiUrl}/demands/${id}`).subscribe(
       demand => {
+        const timePart = demand.demandDate.split('T')[1].slice(0, 5);
         this.form.patchValue({
           customer: demand.customer,
           description: demand.description,
-          demandDate: new Date(demand.demandDate),
+          demandDate: demand.demandDate,
+          demandTime: timePart
         });
       },
       error => {
@@ -64,7 +66,7 @@ export class DemandBottomSheetComponent implements OnInit {
       }
     );
   }
-
+  
   saveDemand(): void {
     if (this.form.valid) {
       const demandData = this.form.value;
@@ -94,7 +96,10 @@ export class DemandBottomSheetComponent implements OnInit {
     }
   }
 
-  private formatDate(date: Date, time: string): string {
+  private formatDate(date: any, time: string): string {
+    if (!(date instanceof Date)) {
+        date = new Date(date);
+    }
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
@@ -103,7 +108,7 @@ export class DemandBottomSheetComponent implements OnInit {
     const seconds = '00';
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  }
+}
 
   close(): void {
     this._bottomSheetRef.dismiss();
