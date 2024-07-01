@@ -41,7 +41,6 @@ export class DemandsListComponent implements OnInit, AfterViewInit {
   
     this.http.get<Demands[]>(apiUrl).subscribe(data => {
       this.dataSource.data = data;
-      debugger;
     });
   }
 

@@ -4,8 +4,8 @@
   </button>
   <div style="display: inline-block; vertical-align: middle;">{{ isNewDemand ? 'NOVO PEDIDO' : 'EDITAR PEDIDO' }}</div>
 
-  <form class="example-form" [formGroup]="form">
-    <mat-form-field class="example-full-width">
+  <form class="form" [formGroup]="form">
+    <mat-form-field class="full-width">
       <mat-label>Cliente</mat-label>
       <mat-select formControlName="customer">
         @for (customer of customers; track customer) {
@@ -14,12 +14,12 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="full-width">
       <textarea matInput placeholder="Descrição" formControlName="description" required></textarea>
     </mat-form-field>
   
     <div class="date-time-container">
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="full-width">
         <mat-label>Data</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="demandDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

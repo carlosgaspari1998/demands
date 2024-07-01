@@ -27,12 +27,10 @@ export class CustomersListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    debugger;
     this.loadCustomers();
   }
 
   ngAfterViewInit(): void {
-    debugger;
     this.dataSource.paginator = this.paginator;
   }
 
