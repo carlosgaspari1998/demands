@@ -6,6 +6,6 @@ export interface Demands {
   address: string;
   description: string;
   creationDate: Date;
-  demandTime: Time;
+  demandDate: Time;
   finished: boolean;
   }

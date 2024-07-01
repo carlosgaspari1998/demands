@@ -19,7 +19,7 @@ export class DemandsListComponent implements OnInit, AfterViewInit {
   paginator!: MatPaginator;
   dataSource = new MatTableDataSource<Demands>;
 
-  displayedColumns: string[] = ['customer', 'address', 'description', 'demandTime', 'creationDate', 'actions'];
+  displayedColumns: string[] = ['customer', 'address', 'description', 'creationDate', 'demandDate', 'actions'];
 
   showOnlyNotFinalized:boolean = false;
   constructor(

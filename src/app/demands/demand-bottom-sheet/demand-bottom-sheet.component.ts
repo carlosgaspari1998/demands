@@ -1,14 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { Customers } from '../../customers/customers';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 @Component({
   selector: 'app-demand-bottom-sheet',
   templateUrl: './demand-bottom-sheet.component.html',
   styleUrl: './demand-bottom-sheet.component.scss',
+  providers: [provideNativeDateAdapter()]
 })
 export class DemandBottomSheetComponent implements OnInit {
   form: FormGroup;
@@ -23,6 +25,7 @@ export class DemandBottomSheetComponent implements OnInit {
     this.form = this.fb.group({
       customer: [null, Validators.required],
       description: [null],
+      demandDate: [null],
       demandTime: [null]
     });
   }
@@ -33,8 +36,10 @@ export class DemandBottomSheetComponent implements OnInit {
     this.loadCustomers();
     if (this.data.id != '')
       this.loadDemand(this.data.id);
-    else
+    else {
       this.isNewDemand = true;
+      this.form.get('demandDate')?.setValue(new Date())
+    }
   }
 
   loadDemand(id: string): void {
@@ -43,7 +48,7 @@ export class DemandBottomSheetComponent implements OnInit {
         this.form.patchValue({
           customer: demand.customer,
           description: demand.description,
-          demandTime: demand.demandTime
+          demandDate: demand.demandDate,
         });
       },
       (error) => {
@@ -61,10 +66,10 @@ export class DemandBottomSheetComponent implements OnInit {
   saveDemand(): void {
     if (this.form.valid) {
       const demandData = this.form.value;
-      debugger;
+      demandData.demandDate = this.formatDate(demandData.demandDate, demandData.demandTime);
 
       if (this.isNewDemand) {
-        this.http.post(environment.apiUrl + '/demands', demandData).subscribe(
+        this.http.post(`${environment.apiUrl}/demands`, demandData).subscribe(
           () => {
             this._bottomSheetRef.dismiss({ success: true, action: 'add' });
           },
@@ -74,7 +79,7 @@ export class DemandBottomSheetComponent implements OnInit {
           }
         );
       } else {
-        this.http.put(environment.apiUrl + `/demands/${this.data.id}`, demandData).subscribe(
+        this.http.put(`${environment.apiUrl}/demands/${this.data.id}`, demandData).subscribe(
           () => {
             this._bottomSheetRef.dismiss({ success: true, action: 'edit' });
           },
@@ -86,7 +91,20 @@ export class DemandBottomSheetComponent implements OnInit {
       }
     }
   }
+
+  private formatDate(date: Date, time: string): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const hours = ('0' + parseInt(time.split(':')[0])).slice(-2);
+    const minutes = ('0' + parseInt(time.split(':')[1])).slice(-2);
+    const seconds = '00';
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   close(): void {
     this._bottomSheetRef.dismiss();
   }
+
 }

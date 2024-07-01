@@ -13,3 +13,14 @@
     justify-content: right;
     padding: 1em;
   }
+
+  .date-time-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .time-form-field {
+    margin-left: 10px;
+  }
+  

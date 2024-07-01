@@ -17,10 +17,20 @@
     <mat-form-field class="example-full-width">
       <textarea matInput placeholder="Descrição" formControlName="description" required></textarea>
     </mat-form-field>
-
-    <mat-form-field >
-      <input type="time" matInput placeholder="Horário" formControlName="demandTime" required>
-    </mat-form-field>
+  
+    <div class="date-time-container">
+      <mat-form-field class="example-full-width">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="demandDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    
+      <mat-form-field class="time-form-field">
+        <mat-label>Horário</mat-label>
+        <input type="time" matInput placeholder="Horário" formControlName="demandTime" required>
+      </mat-form-field>
+    </div>
     
   </form>
   <div class="add">

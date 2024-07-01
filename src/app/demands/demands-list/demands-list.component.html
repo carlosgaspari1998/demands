@@ -30,16 +30,16 @@
         <td mat-cell *matCellDef="let element" style="max-width: 200px; word-wrap: break-word; white-space: pre-wrap">{{element.description}}</td>
       </ng-container>
       
-
-      <ng-container matColumnDef="demandTime">
-        <th mat-header-cell *matHeaderCellDef>Horário</th>
-        <td mat-cell *matCellDef="let element">{{element.demandTime}}</td>
-      </ng-container>
-
       <ng-container matColumnDef="creationDate">
-        <th mat-header-cell *matHeaderCellDef>Data de criação</th>
+        <th mat-header-cell *matHeaderCellDef>Data de Criação</th>
         <td mat-cell *matCellDef="let element" style="min-width: 100px;">{{ element.creationDate | date: 'dd/MM/yyyy HH:mm' }}</td>
       </ng-container>
+
+      <ng-container matColumnDef="demandDate">
+        <th mat-header-cell *matHeaderCellDef>Data limite de Conclusão</th>
+        <td mat-cell *matCellDef="let element">{{element.demandDate | date: 'dd/MM/yyyy HH:mm'}}</td>
+      </ng-container>
+      
       <ng-container matColumnDef="actions" >
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let element" style="min-width: 100px;">
