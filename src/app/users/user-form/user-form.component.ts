@@ -7,11 +7,11 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss'
+  styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent {
   form: FormGroup;
-  @Output() viewUserLogin = new EventEmitter();
+  @Output() viewUserLogin = new EventEmitter<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +24,7 @@ export class UserFormComponent {
     });
   }
 
-  register() {
+  register(): void {
     if (this.form.valid) {
       const { name, email, password } = this.form.value;
       this.registerRequest(name, email, password).subscribe({

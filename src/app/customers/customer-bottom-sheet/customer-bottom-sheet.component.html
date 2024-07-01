@@ -4,7 +4,7 @@
   </button>
   <div style="display: inline-block; vertical-align: middle;">{{ isNewCustomer ? 'NOVO CLIENTE' : 'EDITAR CLIENTE' }}</div>
 
-  <form class="form" [formGroup]="form">
+  <form class="form" [formGroup]="form" (ngSubmit)="saveCustomer()">
     <mat-form-field class="full-width">
       <input matInput placeholder="Nome" formControlName="name" required>
     </mat-form-field>
@@ -12,9 +12,9 @@
     <mat-form-field class="full-width">
       <textarea matInput placeholder="Endereço" formControlName="address" required></textarea>
     </mat-form-field>
-  </form>
 
-  <div class="add">
-    <button (click)="saveCustomer()" mat-flat-button type="submit" color="primary">{{ isNewCustomer ? 'SALVAR' : 'ATUALIZAR' }}</button>
-  </div>
+    <div class="add">
+      <button mat-flat-button type="submit" color="primary">{{ isNewCustomer ? 'SALVAR' : 'ATUALIZAR' }}</button>
+    </div>
+  </form>
 </div>

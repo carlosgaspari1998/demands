@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-customer-bottom-sheet',
   templateUrl: './customer-bottom-sheet.component.html',
-  styleUrl: './customer-bottom-sheet.component.scss',
+  styleUrls: ['./customer-bottom-sheet.component.scss'],
 })
 export class CustomerBottomSheetComponent implements OnInit {
   form: FormGroup;
@@ -73,6 +73,7 @@ export class CustomerBottomSheetComponent implements OnInit {
       }
     }
   }
+
   close(): void {
     this._bottomSheetRef.dismiss();
   }

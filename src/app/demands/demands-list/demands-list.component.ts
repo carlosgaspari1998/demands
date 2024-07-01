@@ -12,23 +12,21 @@ import { Demands } from '../demands';
 @Component({
   selector: 'app-demands-list',
   templateUrl: './demands-list.component.html',
-  styleUrl: './demands-list.component.scss'
+  styleUrls: ['./demands-list.component.scss']
 })
 export class DemandsListComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-  dataSource = new MatTableDataSource<Demands>;
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource = new MatTableDataSource<Demands>();
   displayedColumns: string[] = ['customer', 'address', 'description', 'creationDate', 'demandDate', 'actions'];
+  showOnlyNotFinalized: boolean = false;
 
-  showOnlyNotFinalized:boolean = false;
   constructor(
     private _bottomSheet: MatBottomSheet,
     private dialog: MatDialog,
     private http: HttpClient
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadDemands();
   }
 
@@ -36,20 +34,25 @@ export class DemandsListComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  loadDemands() {
-    const apiUrl = `${environment.apiUrl}/demands?showOnlyNotFinalized=` + this.showOnlyNotFinalized;
-  
-    this.http.get<Demands[]>(apiUrl).subscribe(data => {
-      this.dataSource.data = data;
-    });
+  loadDemands(): void {
+    const apiUrl = `${environment.apiUrl}/demands?showOnlyNotFinalized=${this.showOnlyNotFinalized}`;
+
+    this.http.get<Demands[]>(apiUrl).subscribe(
+      data => {
+        this.dataSource.data = data;
+      },
+      error => {
+        console.error('Erro ao carregar pedidos:', error);
+      }
+    );
   }
 
-  addDemand() {
+  addDemand(): void {
     this.openBottomSheet();
   }
 
-  editItem(item: Demands) {
-    this.openBottomSheet(item.id)
+  editItem(item: Demands): void {
+    this.openBottomSheet(item.id);
   }
 
   openBottomSheet(demandId?: string): void {
@@ -58,15 +61,16 @@ export class DemandsListComponent implements OnInit, AfterViewInit {
         id: demandId || ''
       }
     });
-  
-    bottomSheetRef.afterDismissed().subscribe((result) => {
-      if (result && result.success)
+
+    bottomSheetRef.afterDismissed().subscribe(result => {
+      if (result && result.success) {
         this.loadDemands();
+      }
     });
   }
 
   removeItem(element: Demands): void {
-    const dialog = this.dialog.open(ConfirmationDialog, { 
+    const dialog = this.dialog.open(ConfirmationDialog, {
       maxWidth: '500px',
       data: {
         title: 'Remover pedido',
@@ -75,52 +79,49 @@ export class DemandsListComponent implements OnInit, AfterViewInit {
         action: 'REMOVER'
       }
     });
-    dialog
-      .afterClosed()
-      .subscribe((confirm: boolean) => {
-        if (confirm) {
-          this.removeData(element.id);
-        }
-      });
+
+    dialog.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.removeData(element.id);
+      }
+    });
   }
 
   finishedItem(element: Demands): void {
-    const dialog = this.dialog.open(ConfirmationDialog, { 
+    const dialog = this.dialog.open(ConfirmationDialog, {
       maxWidth: '500px',
       data: {
         title: 'Finalizar pedido',
-        subtitle: 'Você tem certeza de que deseja prosseguir?',
+        subtitle: 'Você tem certeza de que deseja finalizar este pedido?',
         cancel: 'CANCELAR',
         action: 'FINALIZAR'
       }
     });
-    dialog
-      .afterClosed()
-      .subscribe((confirm: boolean) => {
-        if (confirm) {
-          this.finishedData(element.id);
-        }
-      });
+
+    dialog.afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.finishedData(element.id);
+      }
+    });
   }
 
-
-  removeData(demandId: string) {
-    this.http.delete(environment.apiUrl + `/demands/${demandId}`).subscribe(
+  removeData(demandId: string): void {
+    this.http.delete(`${environment.apiUrl}/demands/${demandId}`).subscribe(
       () => {
         this.loadDemands();
       },
-      (error) => {
-        console.error('Erro ao remover o cliente:', error);
+      error => {
+        console.error('Erro ao remover pedido:', error);
       }
     );
   }
 
-  finishedData(demandId: string) {
-    this.http.patch(environment.apiUrl + `/demands/${demandId}`, null).subscribe(
+  finishedData(demandId: string): void {
+    this.http.patch(`${environment.apiUrl}/demands/${demandId}`, null).subscribe(
       () => {
         this.loadDemands();
       },
-      (error) => {
+      error => {
         console.error('Erro ao finalizar pedido:', error);
       }
     );

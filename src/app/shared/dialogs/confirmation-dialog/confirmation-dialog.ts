@@ -1,11 +1,10 @@
-import {ChangeDetectorRef, Component, ElementRef, Inject, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { ChangeDetectorRef, Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'confirmation-dialog',
   templateUrl: 'confirmation-dialog.html'
 })
-
 export class ConfirmationDialog {
   @ViewChild('buttonConfirm') buttonConfirm!: ElementRef;
 

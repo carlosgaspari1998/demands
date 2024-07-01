@@ -25,27 +25,30 @@ export class EventsListComponent implements OnInit {
 
   loadLogs(): void {
     const apiUrl = `${environment.apiUrl}/events`;
-  
+
     this.http.get<Events[]>(apiUrl).subscribe(data => {
       this.dataSource.data = data;
-      data.forEach(element => {
-        switch (element.action) {
-          case ActionEnum.create:
-            element.actionName = 'NOVO PEDIDO';
-            break;
-          case ActionEnum.update:
-            element.actionName = 'PEDIDO ATUALIZADO';
-            break;
-          case ActionEnum.remove:
-            element.actionName = 'PEDIDO REMOVIDO';
-            break;
-          case ActionEnum.finished:
-            element.actionName = 'PEDIDO FINALIZADO';
-            break;
-        }
-      });
-      
+      this.mapActionNames(data);
       this.dataSource.paginator = this.paginator;
+    });
+  }
+
+  private mapActionNames(data: Events[]): void {
+    data.forEach(element => {
+      switch (element.action) {
+        case ActionEnum.create:
+          element.actionName = 'NOVO PEDIDO';
+          break;
+        case ActionEnum.update:
+          element.actionName = 'PEDIDO ATUALIZADO';
+          break;
+        case ActionEnum.remove:
+          element.actionName = 'PEDIDO REMOVIDO';
+          break;
+        case ActionEnum.finished:
+          element.actionName = 'PEDIDO FINALIZADO';
+          break;
+      }
     });
   }
 }

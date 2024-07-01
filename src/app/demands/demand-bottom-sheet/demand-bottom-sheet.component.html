@@ -21,7 +21,7 @@
     <div class="date-time-container">
       <mat-form-field class="full-width">
         <mat-label>Data</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="demandDate">
+        <input matInput [matDatepicker]="picker" formControlName="demandDate" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -31,9 +31,9 @@
         <input type="time" matInput placeholder="Horário" formControlName="demandTime" required>
       </mat-form-field>
     </div>
-    
   </form>
+
   <div class="add">
-    <button (click)="saveDemand()" mat-flat-button type="submit" color="primary">{{ isNewDemand ? 'SALVAR' : 'ATUALIZAR' }}</button>
+    <button (click)="saveDemand()" mat-flat-button type="button" color="primary">{{ isNewDemand ? 'SALVAR' : 'ATUALIZAR' }}</button>
   </div>
 </div>
